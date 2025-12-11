@@ -10,7 +10,7 @@ const DaywiseActivitySchema = new mongoose.Schema({
 });
 
 const HotelDetailSchema = new mongoose.Schema({
-  hotelId: { type: mongoose.Schema.Types.ObjectId, ref: 'Hotel' },
+  // hotelId: { type: mongoose.Schema.Types.ObjectId, ref: 'Hotel' },
   hotelName: String,
   checkIn: String,
   checkOut: String,

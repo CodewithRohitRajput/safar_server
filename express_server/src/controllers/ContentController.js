@@ -1,9 +1,47 @@
-
 const ContentService = require('../services/ContentService');
 module.exports = {
-  create: async (req,res)=>{ res.json(await ContentService.create(req.body)); },
-  getAll: async (req,res)=>{ res.json(await ContentService.findAll()); },
-  getOne: async (req,res)=>{ res.json(await ContentService.findById(req.params.id)); },
-  update: async (req,res)=>{ res.json(await ContentService.update(req.params.id, req.body)); },
-  delete: async (req,res)=>{ res.json(await ContentService.delete(req.params.id)); },
+  create: async (req, res) => {
+    try {
+      const newContent = await ContentService.create(req.body);
+      res.status(201).json(newContent);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
+  getAll: async (req, res) => {
+    try {
+      const allContent = await ContentService.findAll();
+      res.status(200).json(allContent);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
+  getOne: async (req, res) => {
+    try {
+      const getContentById = await ContentService.findById(req.params.id);
+      res.status(200).json(getContentById);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
+  update: async (req, res) => {
+    try {
+      const updatedContent = await ContentService.update(req.params.id, req.body);
+      res.status(200).json(updatedContent);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
+  delete: async (req, res) => {
+    try {
+      await ContentService.delete(req.params.id);
+      res.status(200).json({ message: "Deleted successfully" });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
 };
