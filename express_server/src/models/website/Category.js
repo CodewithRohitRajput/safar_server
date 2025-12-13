@@ -24,6 +24,8 @@ const CategorySchema = new mongoose.Schema({
   seo_fields: SEOFieldsSchema, 
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  deleted : {type : Boolean , default : false}
+
 });
 
 CategorySchema.pre('save', function(next) {

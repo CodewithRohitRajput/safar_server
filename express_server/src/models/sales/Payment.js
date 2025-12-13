@@ -27,6 +27,8 @@ const PaymentSchema = new mongoose.Schema({
   remarks: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  deleted : {type : Boolean , default : false}
+
 });
 
 PaymentSchema.pre('save', function(next) {

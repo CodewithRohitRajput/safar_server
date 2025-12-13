@@ -15,6 +15,7 @@ const CustomizeLeadSchema = new mongoose.Schema({
   customNotes: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  deleted : {type : Boolean , default : false}
 });
 
 CustomizeLeadSchema.pre('save', function(next) {

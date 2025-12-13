@@ -60,6 +60,8 @@ const InvoiceSchema = new mongoose.Schema({
   notes: String, 
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  deleted : {type : Boolean , default : false}
+
 });
 
 InvoiceSchema.pre('save', function(next) {

@@ -81,6 +81,8 @@ const ItinerarySchema = new mongoose.Schema({
   cancellationPolicy: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  deleted : {type : Boolean , default : false}
+
 });
 
 ItinerarySchema.pre('save', function(next) {

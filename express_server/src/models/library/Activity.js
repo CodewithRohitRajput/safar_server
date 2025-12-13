@@ -25,6 +25,8 @@ const ActivitySchema = new mongoose.Schema({
   status: { type: String, enum: ['active', 'inactive'], default: 'active' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  deleted : {type : Boolean , default : false}
+
 });
 
 ActivitySchema.pre('save', function(next) {

@@ -17,6 +17,8 @@ const ReviewSchema = new mongoose.Schema({
   bookingId: { type: mongoose.Schema.Types.ObjectId, ref: 'Booking' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  deleted : {type : Boolean , default : false}
+
 });
 
 ReviewSchema.pre('save', function(next) {

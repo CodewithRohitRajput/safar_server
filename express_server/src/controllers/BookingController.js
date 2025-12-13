@@ -1,5 +1,15 @@
 const BookingService = require('../services/BookingService');
 module.exports = {
+  findByPage : async (req , res) => {
+    try{
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const data = await BookingService.findByPagination(page , limit);
+      return res.status(200).json(data)
+    }catch(err){
+      return res.status(500).json({message : err.message})
+    }
+  },
   create: async (req, res) => {
     try {
       const newBooking = await BookingService.create(req.body);

@@ -1,5 +1,15 @@
 const TransportService = require('../services/TransportService');
 module.exports = {
+    findByPage: async (req, res) => {
+      try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const data = await TransportService.findByPagination(page, limit);
+        return res.status(200).json(data);
+      } catch (err) {
+        res.status(500).json({ message: err.message });
+      }
+    },
   create: async (req, res) => {
     try {
       const newTransport = await TransportService.create(req.body);

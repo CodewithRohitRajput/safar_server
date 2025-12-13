@@ -18,6 +18,8 @@ const LedgerSchema = new mongoose.Schema({
   createdBy: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  deleted : {type : Boolean , default : false}
+
 });
 
 LedgerSchema.pre('save', function(next) {
