@@ -18,7 +18,7 @@ const VendorSchema = new mongoose.Schema({
   outstandingBalance: { type: Number, default: 0 }, // in paise
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
-  deleted : {type : Boolean , default : false}
+  delete : {type : Boolean , default : false}
 
 });
 

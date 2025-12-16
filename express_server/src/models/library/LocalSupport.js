@@ -26,7 +26,7 @@ const LocalSupportSchema = new mongoose.Schema({
   status: { type: String, enum: ['active', 'inactive'], default: 'active' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
-  deleted : {type : Boolean , default : false}
+  delete : {type : Boolean , default : false}
 
 });
 
