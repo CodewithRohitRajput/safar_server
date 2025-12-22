@@ -2,38 +2,43 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const logger = require('./src/middleware/logger');
+const authMiddleware = require('./src/middleware/logger')
+const cookieParser = require('cookie-parser')
 
 const app = express();
 
 // Middlewares
 app.use(cors({
     origin:'http://localhost:5173',
-    methods:["GET", "POST" , "PUT" , "DELETE"]
+    methods:["GET", "POST" , "PUT" , "DELETE"],
+    credentials : true,
+    allowedHeaders: ['Content-Type' , "Authorization"]
 }));
 app.use(express.json());
-app.use(logger);
+app.use(cookieParser());
 
 // All routes
-app.use('/api/index', require('./src/routes/indexRoutes'));
-app.use('/api/customizelead', require('./src/routes/CustomizeLeadRoutes'));
-app.use('/api/lead', require('./src/routes/LeadRoutes'));
-app.use('/api/activity', require('./src/routes/ActivityRoutes'));
-app.use('/api/coordinator', require('./src/routes/CoordinatorRoutes'));
-app.use('/api/hotel', require('./src/routes/HotelRoutes'));
-app.use('/api/localsupport', require('./src/routes/LocalSupportRoutes'));
-app.use('/api/transport', require('./src/routes/TransportRoutes'));
-app.use('/api/invoice', require('./src/routes/InvoiceRoutes'));
-app.use('/api/ledger', require('./src/routes/LedgerRoutes'));
-app.use('/api/payment', require('./src/routes/PaymentRoutes'));
-app.use('/api/vendor', require('./src/routes/VendorRoutes'));
-app.use('/api/booking', require('./src/routes/BookingRoutes'));
-app.use('/api/category', require('./src/routes/CategoryRoutes'));
-app.use('/api/content', require('./src/routes/ContentRoutes'));
-app.use('/api/itinerary', require('./src/routes/ItineraryRoutes'));
-app.use('/api/location', require('./src/routes/LocationRoutes'));
-app.use('/api/review', require('./src/routes/ReviewRoutes'));
+app.use('/api/login' , require('./src/routes/LoginRoutes'));
 
+
+app.use('/api/index', authMiddleware ,require('./src/routes/indexRoutes'));
+app.use('/api/customizelead',authMiddleware , require('./src/routes/CustomizeLeadRoutes'));
+app.use('/api/lead',authMiddleware , require('./src/routes/LeadRoutes'));
+app.use('/api/activity',authMiddleware , require('./src/routes/ActivityRoutes'));
+app.use('/api/coordinator', authMiddleware ,require('./src/routes/CoordinatorRoutes'));
+app.use('/api/hotel',authMiddleware , require('./src/routes/HotelRoutes'));
+app.use('/api/localsupport',authMiddleware , require('./src/routes/LocalSupportRoutes'));
+app.use('/api/transport',authMiddleware , require('./src/routes/TransportRoutes'));
+app.use('/api/invoice',authMiddleware , require('./src/routes/InvoiceRoutes'));
+app.use('/api/ledger',authMiddleware , require('./src/routes/LedgerRoutes'));
+app.use('/api/payment',authMiddleware , require('./src/routes/PaymentRoutes'));
+app.use('/api/vendor',authMiddleware , require('./src/routes/VendorRoutes'));
+app.use('/api/booking',authMiddleware , require('./src/routes/BookingRoutes'));
+app.use('/api/category',authMiddleware , require('./src/routes/CategoryRoutes'));
+app.use('/api/content',authMiddleware , require('./src/routes/ContentRoutes'));
+app.use('/api/itinerary',authMiddleware , require('./src/routes/ItineraryRoutes'));
+app.use('/api/location', authMiddleware ,require('./src/routes/LocationRoutes'));
+app.use('/api/review', authMiddleware ,require('./src/routes/ReviewRoutes'));
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,

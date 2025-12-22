@@ -23,6 +23,10 @@ const Transport = require('./library/Transport');
 const Coordinator = require('./library/Coordinator');
 const LocalSupport = require('./library/LocalSupport');
 
+// User
+
+const User = require('./user/user');
+
 module.exports = {
   // Website
   Itinerary,
@@ -45,4 +49,7 @@ module.exports = {
   Transport,
   Coordinator,
   LocalSupport,
+  //User
+  
+  User
 };

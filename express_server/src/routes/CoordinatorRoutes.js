@@ -1,7 +1,13 @@
+const authMiddleware  = require('../middleware/logger')
+
 
 const express = require('express');
 const router = express.Router();
 const ctrl = require('../controllers/CoordinatorController');
+
+// router.use(authMiddleware);
+
+
 router.post('/', ctrl.create);
 router.get('/', ctrl.getAll);
 router.get('/paginate', ctrl.findByPage);

@@ -14,8 +14,14 @@ const SEOFieldsSchema = new mongoose.Schema({
 
 const LocationSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
-  image: { type: String, required: true }, 
-  feature_images: [String],
+  image: { 
+    data: Buffer,
+    contentType: String
+  }, 
+  feature_images: [{
+    data: Buffer,
+    contentType: String
+  }],
   short_description: String, 
   long_description: String, 
   tripCount: { type: Number, default: 0 },
@@ -34,7 +40,7 @@ const LocationSchema = new mongoose.Schema({
 LocationSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
   // If feature_images array has items, use first one as main image for backward compatibility
-  if (this.feature_images && this.feature_images.length > 0 && !this.image) {
+  if (this.feature_images && this.feature_images.length > 0 && !this.image.data) {
     this.image = this.feature_images[0];
   }
   // Merge description into long_description if long_description is empty
