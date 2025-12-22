@@ -22,6 +22,7 @@ const Activity = require('./library/Activity');
 const Transport = require('./library/Transport');
 const Coordinator = require('./library/Coordinator');
 const LocalSupport = require('./library/LocalSupport');
+const Batch = require('./library/Batch')
 
 // User
 
@@ -49,6 +50,7 @@ module.exports = {
   Transport,
   Coordinator,
   LocalSupport,
+  Batch,
   //User
   
   User

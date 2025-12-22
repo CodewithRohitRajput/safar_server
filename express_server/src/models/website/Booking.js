@@ -1,53 +1,71 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose")
 
-const BookingSchema = new mongoose.Schema({
-  bookingId: { type: String, required: true, unique: true },
-  customerName: { type: String, required: true },
-  customerEmail: { type: String, required: true },
-  customerPhone: { type: String, required: true },
-  itinerary: { type: mongoose.Schema.Types.ObjectId, ref: 'Itinerary', required: true },
-  itineraryName: String,
-  bookingDate: { type: Date, default: Date.now },
-  travelDate: { type: Date, required: true },
-  numberOfTravelers: { type: Number, required: true, min: 1 },
-  totalAmount: { type: Number, required: true },
-  paidAmount: { type: Number, default: 0 },
-  status: { 
-    type: String, 
-    enum: ['confirmed', 'pending', 'cancelled', 'completed'], 
-    default: 'pending' 
-  },
-  paymentStatus: { 
-    type: String, 
-    enum: ['paid', 'pending', 'refunded', 'partial'], 
-    default: 'pending' 
-  },
-  paymentMode: String,
-  transactionId: String,
-  specialRequests: String,
-  emergencyContact: {
-    name: String,
-    phone: String,
-    relation: String,
-  },
-  travelers: [{
-    name: String,
-    age: Number,
-    gender: String,
-    idProof: String,
-  }],
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  delete : {type : Boolean , default : false}
+const { Schema } = mongoose;
 
-});
+const BookingSchema = new Schema(
+  {
+    customer: {
+      type: Schema.Types.ObjectId,
+      ref: "Customer",
+      required: false,
+    },
 
-BookingSchema.pre('save', function(next) {
-  this.updatedAt = Date.now();
-  if (!this.bookingId) {
-    this.bookingId = `BK${Date.now()}`;
+    people_count: {
+      type: Number,
+      required: false,
+    },
+
+    itinerary_id: {
+      type: Schema.Types.ObjectId,
+      ref: "Itinerary",
+      required: true,
+    },
+    batch_id: {
+      type: Schema.Types.ObjectId,
+      ref: "Batch",
+      required: true,
+    },
+
+    total_price: {
+      type: Number,
+      required: true,
+    },
+
+    paid_amount: {
+      type: Number,
+      required: true,
+    },
+
+    invoice_link: {
+      type: String,
+      default: "",
+    },
+
+    transaction: {
+      type: Schema.Types.ObjectId,
+      ref: "Payment",
+      required: false,
+    },
+
+    txn_id: {
+      type: String,
+      required: false,
+    },
+
+    transaction_status: {
+      type: String,
+      enum: ["INITIATED", "SUCCESS", "FAILED"], 
+      required: false,
+    },
+
+    delete : {
+      type : Boolean,
+      default : false
+    }
+  },
+  {
+    timestamps: true, 
   }
-  next();
-});
+);
 
-module.exports = mongoose.model('Booking', BookingSchema);
+module.exports = mongoose.model("Booking" , BookingSchema)
