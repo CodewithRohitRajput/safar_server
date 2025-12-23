@@ -41,6 +41,7 @@ app.use('/api/location', authMiddleware ,require('./src/routes/LocationRoutes'))
 app.use('/api/review', authMiddleware ,require('./src/routes/ReviewRoutes'));
 app.use('/api/customer', authMiddleware ,require('./src/routes/CustomerRoutes'));
 app.use('/api/batch', authMiddleware ,require('./src/routes/BatchRoute'));
+app.use('/api/googleReview', require('./src/routes/GoogleReviewRoutes'))
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
